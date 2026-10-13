@@ -1,7 +1,12 @@
 import axios from "axios";
 
+// 1. Récupère dynamiquement l'URL Render en production, ou gère le proxy local
+const API_URL = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/api`
+  : "/api";
+
 const client = axios.create({
-  baseURL: "/api",
+  baseURL: API_URL,
 });
 
 client.interceptors.request.use((config) => {
