@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  @apply bg-haigana-bg text-haigana-dark font-sans antialiased;
+}
+
+/* Scrollbar discrete */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: #547A95; border-radius: 8px; }
+::-webkit-scrollbar-track { background: #E8EDF2; }
+
+.date-tampon {
+  display: inline-block;
+  width: 42mm;
+  height: 10mm;
+  margin-left: 3mm;
+  vertical-align: middle;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}

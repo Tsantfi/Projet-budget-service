@@ -1,0 +1,34 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: haigana
+  datasource:
+    url: jdbc:postgresql://ep-noisy-morning-b9p1dzkv-pooler.c-7.eu-central-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+    username: neondb_owner
+    password: npg_gXNkP5np4OCA
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+haigana:
+  jwt:
+    secret: "ChangeThisSecretKeyInProductionEnvironmentHaiganaDRBFBoeny2026"
+    expiration-ms: 86400000
+  cors:
+    allowed-origins: "http://localhost:5173"
+  # Livret annuel courant (N). Les bons de commande ne sont ajoutables/modifiables qu'a cette annee.
+  annee-en-cours: 2026
+
+
