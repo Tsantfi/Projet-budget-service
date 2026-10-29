@@ -1526,6 +1526,31 @@ export default function VehiculeConsultation() {
 
           </div>
 
+          {/* PRIX DU VEHICULE */}
+
+          <div className="bg-gray-50 rounded-xl p-4">
+            <label htmlFor="prixVehicule" className="block text-xs text-gray-500 mb-1 font-normal">
+              Prix du véhicule (Ariary)
+            </label>
+            {modeModification ? (
+              <input
+                type="number"
+                id="prixVehicule"
+                name="prixVehicule"
+                value={form.prixVehicule}
+                onChange={handleChange}
+                placeholder="Ex: 25000000"
+                className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-haigana-dark focus:outline-none focus:border-haigana-blue focus:ring-2 focus:ring-haigana-blue/20"
+              />
+            ) : (
+              <p className="font-semibold text-haigana-dark">
+                {vehicule?.prixVehicule !== null && vehicule?.prixVehicule !== undefined
+                  ? `${Number(vehicule.prixVehicule).toLocaleString('fr-FR')} Ar`
+                  : "-"}
+              </p>
+            )}
+          </div>
+
           {/* DATE CIRCULATION */}
 
           <div
