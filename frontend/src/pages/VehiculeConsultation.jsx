@@ -77,15 +77,15 @@ export default function VehiculeConsultation() {
 
   //Chargement d'etats
   useEffect(() => {
-  const chargerEtats = async () => {
-    try {
-      const response = await client.get("/reference/etats");
-      setEtats(response.data || []);
-    } catch (error) {
-      console.error("Erreur lors du chargement des états :", error);
-      setEtats([]);
-    }
-  };
+    const chargerEtats = async () => {
+      try {
+        const response = await client.get("/reference/etats");
+        setEtats(response.data || []);
+      } catch (error) {
+        console.error("Erreur lors du chargement des états :", error);
+        setEtats([]);
+      }
+    };
 
     chargerEtats();
   }, []);
@@ -174,8 +174,8 @@ export default function VehiculeConsultation() {
 
         setError(
           err.response?.data?.message ||
-            err.response?.data?.detail ||
-            "Impossible de charger le véhicule."
+          err.response?.data?.detail ||
+          "Impossible de charger le véhicule."
         );
 
       } finally {
@@ -199,7 +199,7 @@ export default function VehiculeConsultation() {
 
       prixVehicule:
         v?.prixVehicule !== null &&
-        v?.prixVehicule !== undefined
+          v?.prixVehicule !== undefined
           ? v.prixVehicule
           : "",
 
@@ -213,13 +213,13 @@ export default function VehiculeConsultation() {
 
       localiteLatitude:
         v?.localiteLatitude !== null &&
-        v?.localiteLatitude !== undefined
+          v?.localiteLatitude !== undefined
           ? v.localiteLatitude
           : "",
 
       localiteLongitude:
         v?.localiteLongitude !== null &&
-        v?.localiteLongitude !== undefined
+          v?.localiteLongitude !== undefined
           ? v.localiteLongitude
           : "",
 
@@ -777,8 +777,8 @@ export default function VehiculeConsultation() {
 
       setError(
         err.response?.data?.message ||
-          err.response?.data?.detail ||
-          "Impossible de faire la mise à jour."
+        err.response?.data?.detail ||
+        "Impossible de faire la mise à jour."
       );
 
     } finally {
@@ -825,14 +825,13 @@ export default function VehiculeConsultation() {
     vehicule?.chauffeur || null;
 
   const detenteurNom = detenteur
-    ? `${detenteur.nomDetenteur || ""} ${
-        detenteur.prenomDetenteur || ""
+    ? `${detenteur.nomDetenteur || ""} ${detenteur.prenomDetenteur || ""
       }`.trim()
     : "-";
 
   // CHARGEMENT
 
-  
+
 
   if (loading) {
     return (
@@ -902,7 +901,7 @@ export default function VehiculeConsultation() {
       </div>
     );
   }
-  
+
 
   // AFFICHAGE PRINCIPAL
 
@@ -1059,7 +1058,16 @@ export default function VehiculeConsultation() {
                     typePriseEnCharge: value,
                     ...(value === "ACHAT"
                       ? {
-                          pvEvaluation: "",
+                        pvEvaluation: "",
+                        nomPersonneSortie: "",
+                        cinPersonneSortie: "",
+                        serviceSortie: "",
+                        nomPersonneEntree: "",
+                        cinPersonneEntree: "",
+                        serviceEntree: "",
+                      }
+                      : value === "DON"
+                        ? {
                           nomPersonneSortie: "",
                           cinPersonneSortie: "",
                           serviceSortie: "",
@@ -1067,21 +1075,12 @@ export default function VehiculeConsultation() {
                           cinPersonneEntree: "",
                           serviceEntree: "",
                         }
-                      : value === "DON"
-                        ? {
-                            nomPersonneSortie: "",
-                            cinPersonneSortie: "",
-                            serviceSortie: "",
-                            nomPersonneEntree: "",
-                            cinPersonneEntree: "",
-                            serviceEntree: "",
-                          }
                         : value === "AFFECTATION"
                           ? {
-                              ordreEntree: "",
-                              facture: "",
-                              pvEvaluation: "",
-                            }
+                            ordreEntree: "",
+                            facture: "",
+                            pvEvaluation: "",
+                          }
                           : {}),
                   }));
                 }}
@@ -1404,29 +1403,29 @@ export default function VehiculeConsultation() {
           </div>
 
           <div
-          className="
+            className="
             bg-gray-50
             rounded-xl
             p-4
           "
-        >
-          <p
-            className="
+          >
+            <p
+              className="
               text-xs
               text-gray-500
               mb-1
             "
-          >
-            État
-          </p>
+            >
+              État
+            </p>
 
-          {modeModification ? (
+            {modeModification ? (
 
-            <select
-              name="etatId"
-              value={form.etatId || ""}
-              onChange={handleChange}
-              className="
+              <select
+                name="etatId"
+                value={form.etatId || ""}
+                onChange={handleChange}
+                className="
                 w-full
                 px-3
                 py-2
@@ -1439,35 +1438,35 @@ export default function VehiculeConsultation() {
                 focus:ring-haigana-blue/20
                 outline-none
               "
-            >
-              <option value="">
-                Sélectionner un état
-              </option>
-
-              {etats.map((etat) => (
-                <option
-                  key={etat.id}
-                  value={etat.id}
-                >
-                  {etat.etatVehicule}
+              >
+                <option value="">
+                  Sélectionner un état
                 </option>
-              ))}
-            </select>
 
-          ) : (
+                {etats.map((etat) => (
+                  <option
+                    key={etat.id}
+                    value={etat.id}
+                  >
+                    {etat.etatVehicule}
+                  </option>
+                ))}
+              </select>
 
-            <p
-              className="
+            ) : (
+
+              <p
+                className="
                 font-semibold
                 text-haigana-dark
               "
-            >
-              {vehicule?.etat?.etatVehicule || "-"}
-            </p>
+              >
+                {vehicule?.etat?.etatVehicule || "-"}
+              </p>
 
-          )}
+            )}
 
-        </div>
+          </div>
 
           {/* MARQUE */}
 
@@ -1524,6 +1523,31 @@ export default function VehiculeConsultation() {
 
             )}
 
+          </div>
+
+          {/* CARBURANT */}
+          <div className="bg-gray-50 rounded-xl p-4">
+            <label htmlFor="carburantId" className="block text-xs text-gray-500 mb-1 font-normal">
+              Carburant
+            </label>
+            {modeModification ? (
+              <select
+                id="carburantId"
+                name="carburantId"
+                value={form.carburantId || ""}
+                onChange={handleChange}
+                className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-haigana-dark focus:outline-none focus:border-haigana-blue focus:ring-2 focus:ring-haigana-blue/20 outline-none"
+              >
+                <option value="">Sélectionner un carburant</option>
+                <option value="1">Essence</option>
+                <option value="2">Gasoil</option>
+                <option value="3">Diesel</option>
+              </select>
+            ) : (
+              <p className="font-semibold text-haigana-dark">
+                {vehicule?.carburant?.libelle || "-"}
+              </p>
+            )}
           </div>
 
           {/* PRIX DU VEHICULE */}
